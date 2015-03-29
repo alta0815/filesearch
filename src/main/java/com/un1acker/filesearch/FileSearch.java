@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class FileSearch {
     private List<File> findFiles;
-//    private Settings settings;
 
     public FileSearch() {
     }
@@ -35,7 +34,7 @@ public class FileSearch {
         String format = "%s : %s \n";
         if (findFiles.size() != 0) {
             for (File file : this.findFiles) {
-                info.append("++++++++++++++++++++++++++").append("\n");
+                info.append("==============================").append("\n");
                 info.append(String.format(format, "File name", file.getName()));
                 info.append(String.format(format, "isDirectory", file.isDirectory()));
                 info.append(String.format(format, "File name parent path", file.getParent()));
