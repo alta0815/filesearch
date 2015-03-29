@@ -1,4 +1,4 @@
 *.iml
 .idea/
-target/
-
+target/*
+!target/filesearch-1.0.jar
