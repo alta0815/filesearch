@@ -7,7 +7,7 @@ import org.kohsuke.args4j.Option;
  * 29.03.2015
  */
 public class Settings {
-    @Option(name = "-n", aliases = "--name", usage = "search files by this name(regex)")
+    @Option(name = "-n", aliases = "--name", usage = "search files by this name(regex pattern)")
     private static String name;
     @Option(name = "-s", aliases = "--size", usage = "add size in byte for all searched files")
     private static boolean returnFileSize;
