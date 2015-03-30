@@ -8,10 +8,10 @@ import java.util.regex.Pattern;
  * un1acker
  * 29.03.2015
  */
-public class FIleFilterByName implements FilenameFilter {
+public class FileFilterByName implements FilenameFilter {
     private Pattern pattern;
 
-    public FIleFilterByName(String regex) {
+    public FileFilterByName(String regex) {
         this.pattern = Pattern.compile(regex);
     }
 
