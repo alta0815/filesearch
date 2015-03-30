@@ -1,6 +1,6 @@
 package com.un1acker.filesearch;
 
-import com.un1acker.filesearch.util.FIleFilterByName;
+import com.un1acker.filesearch.util.FileFilterByName;
 import com.un1acker.filesearch.util.FileUtil;
 
 import java.io.File;
@@ -23,9 +23,9 @@ public class FileSearch {
 
     private void searchFiles(File searchDirectory) {
         if (Settings.getName() != null) {
-            this.findFiles = FileUtil.listFiles(searchDirectory, new FIleFilterByName(Settings.getName()));
+            this.findFiles = FileUtil.listFiles(searchDirectory, new FileFilterByName(Settings.getName()));
         } else {
-            this.findFiles = FileUtil.listFiles(searchDirectory, new FIleFilterByName(".+"));
+            this.findFiles = FileUtil.listFiles(searchDirectory, new FileFilterByName(".+"));
         }
     }
 
