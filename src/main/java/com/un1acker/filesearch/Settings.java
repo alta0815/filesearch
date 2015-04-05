@@ -11,6 +11,8 @@ public class Settings {
     private static String name;
     @Option(name = "-s", aliases = "--size", usage = "add size in byte for all searched files")
     private static boolean returnFileSize;
+    @Option(name = "-d", aliases = "--date", usage = "add last modified date for all searched files")
+    private static boolean returnLastModifiedDate;
 
     public static String getName() {
         return name;
@@ -18,5 +20,9 @@ public class Settings {
 
     public static boolean isReturnFileSize() {
         return returnFileSize;
+    }
+
+    public static boolean isReturnLastModifiedDate() {
+        return returnLastModifiedDate;
     }
 }

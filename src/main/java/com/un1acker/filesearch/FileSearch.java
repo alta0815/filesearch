@@ -6,6 +6,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,6 +63,9 @@ public class FileSearch {
                 info.append(String.format(format, "File name parent path", file.getParent()));
                 if (Settings.isReturnFileSize() && file.isFile()) {
                     info.append(String.format(format, "File size in byte", file.length()));
+                }
+                if(Settings.isReturnLastModifiedDate()){
+                    info.append(String.format(format, "Last modified", new Date(file.lastModified())));
                 }
             }
         } else {

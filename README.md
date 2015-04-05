@@ -6,6 +6,7 @@ regex pattern
 
 * -n have aliases --name -> search files by this name(regex pattern)
 * -s have aliases --size -> add size in byte for all searched files
+* -d have aliases --date -> add last modified date for all searched files
 
 -n and -s is not required. In this case filesearch return all files
 in rootDirectory recursively.
