@@ -39,7 +39,7 @@ public class FileSearch {
 
     public void searchResult(File searchDirectory) {
         searchFiles(searchDirectory);
-        System.out.println(getInfoFindFiles());
+        System.out.println(getInfo());
     }
 
     private void searchFiles(File searchDirectory) {
@@ -52,27 +52,37 @@ public class FileSearch {
         }
     }
 
-    private String getInfoFindFiles() {
-        StringBuilder info = new StringBuilder();
-        String format = "%s : %s \n";
-        if (findFiles.size() != 0) {
-            for (File file : this.findFiles) {
-                info.append("==============================").append("\n");
-                info.append(String.format(format, "File name", file.getName()));
-                info.append(String.format(format, "isDirectory", file.isDirectory()));
-                info.append(String.format(format, "File name parent path", file.getParent()));
-                if (Settings.isReturnFileSize() && file.isFile()) {
-                    info.append(String.format(format, "File size in byte", file.length()));
-                }
-                if(Settings.isReturnLastModifiedDate()){
-                    info.append(String.format(format, "Last modified", new Date(file.lastModified())));
-                }
+    private String getInfo() {
+        if (this.findFiles.size() != 0) {
+            if (Settings.isReturnLastModifiedDate() && Settings.isReturnFileSize()) {
+                String format = "%1$-50s %2$-15s %3$-50s %4$-10s %5$-20s\n";
+                return getInfoFindFiles(format);
+            } else if (Settings.isReturnFileSize()) {
+                String format = "%1$-50s %2$-15s %3$-50s %4$-10s\n";
+                return getInfoFindFiles(format);
+            } else if (Settings.isReturnLastModifiedDate()) {
+                String format = "%1$-50s %2$-15s %3$-50s %5$-20s\n";
+                return getInfoFindFiles(format);
+            } else {
+                String format = "%1$-50s %2$-15s %3$-50s\n";
+                return getInfoFindFiles(format);
             }
-        } else {
-            info.append("Nothing found\n");
+        }
+        return "Nothing found\n";
+
+    }
+
+    private String getInfoFindFiles(String format) {
+        StringBuilder info = new StringBuilder();
+        info.append(String.format(format, "FileName", "isDirectory", "FilePath", "Size", "Date"));
+        for (File file : this.findFiles) {
+            info.append(String.format(format, file.getName(), file.isDirectory(), getFilePath(file.getAbsolutePath()), file.length(), new Date(file.lastModified())));
         }
         return info.toString();
     }
 
-
+    private String getFilePath(String absolutePath) {
+        return ".." + File.separator + absolutePath.
+                substring(System.getProperty("user.dir").length(), absolutePath.lastIndexOf(File.separator));
+    }
 }
