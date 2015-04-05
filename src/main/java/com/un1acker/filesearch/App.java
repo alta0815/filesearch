@@ -14,6 +14,7 @@ public class App {
     private static Settings settings = new Settings();
     private static CmdLineParser parser = new CmdLineParser(settings);
     private static FileSearch fileSearch = new FileSearch();
+
     public static void main(String[] args) {
         try {
             parser.parseArgument(args);
@@ -22,6 +23,5 @@ public class App {
             System.out.println(e.getMessage());
             parser.printUsage(System.out);
         }
-
     }
 }
