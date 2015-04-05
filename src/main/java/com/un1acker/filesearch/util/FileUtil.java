@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -31,9 +32,7 @@ public class FileUtil {
             }
         }
         if (findFiles.length > 0) {
-            for (File file : findFiles) {
-                files.add(file);
-            }
+            Collections.addAll(files, findFiles);
         }
     }
 }

@@ -2,6 +2,8 @@ package com.un1acker.filesearch;
 
 import com.un1acker.filesearch.util.FileFilterByName;
 import com.un1acker.filesearch.util.FileUtil;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
 
 import java.io.File;
 import java.util.List;
@@ -12,9 +14,23 @@ import java.util.List;
  */
 public class FileSearch {
     private List<File> findFiles;
+    private FileUtil fileUtil;
+
+    private static Settings settings = new Settings();
+    private static CmdLineParser parser = new CmdLineParser(settings);
+
     //statics methods should be short and quick
     // here you put your main logic in a static context. This won't be work in more then one thread
-    FileUtil fileUtil;
+    public static void init(String[] args, File rootDirectory) {
+        try {
+            parser.parseArgument(args);
+        } catch (CmdLineException e) {
+            System.out.println(e.getMessage());
+            parser.printUsage(System.out);
+        }
+        FileSearch fileSearch = new FileSearch();
+        fileSearch.searchResult(rootDirectory);
+    }
 
     public FileSearch() {
         fileUtil = new FileUtil();
@@ -28,7 +44,7 @@ public class FileSearch {
     private void searchFiles(File searchDirectory) {
         if (Settings.getName() != null) {
             this.findFiles = fileUtil.findFilesInDirectoryForFilter(searchDirectory,
-                                                                    new FileFilterByName(Settings.getName()));
+                    new FileFilterByName(Settings.getName()));
         } else {
             System.out.println("No properties was provided. Searching in the root directory");
             this.findFiles = fileUtil.findFilesInDirectoryForFilter(searchDirectory, new FileFilterByName(".+"));
