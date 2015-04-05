@@ -12,20 +12,26 @@ import java.util.List;
  */
 public class FileSearch {
     private List<File> findFiles;
+    //statics methods should be short and quick
+    // here you put your main logic in a static context. This won't be work in more then one thread
+    FileUtil fileUtil;
 
     public FileSearch() {
+        fileUtil = new FileUtil();
     }
 
     public void searchResult(File searchDirectory) {
-        this.searchFiles(searchDirectory);
+        searchFiles(searchDirectory);
         System.out.println(getInfoFindFiles());
     }
 
     private void searchFiles(File searchDirectory) {
         if (Settings.getName() != null) {
-            this.findFiles = FileUtil.listFiles(searchDirectory, new FileFilterByName(Settings.getName()));
+            this.findFiles = fileUtil.findFilesInDirectoryForFilter(searchDirectory,
+                                                                    new FileFilterByName(Settings.getName()));
         } else {
-            this.findFiles = FileUtil.listFiles(searchDirectory, new FileFilterByName(".+"));
+            System.out.println("No properties was provided. Searching in the root directory");
+            this.findFiles = fileUtil.findFilesInDirectoryForFilter(searchDirectory, new FileFilterByName(".+"));
         }
     }
 

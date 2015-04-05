@@ -1,26 +1,33 @@
 package com.un1acker.filesearch.util;
 
+import com.google.common.collect.Lists;
+
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * un1acker
  * 29.03.2015
  */
 public class FileUtil {
-    public static List<File> listFiles(File searchDirectory, FilenameFilter nameFilter) {
-        List<File> files = new ArrayList<>();
-        innerListFiles(files, searchDirectory, nameFilter);
-        return files;
+    public List<File> findFilesInDirectoryForFilter(File searchDirectory, FilenameFilter nameFilter) {
+        List<File> resultFilesList = Lists.newArrayList();
+        searchFilesInFolderRecursively(resultFilesList, searchDirectory, nameFilter);
+        return resultFilesList;
     }
 
-    private static void innerListFiles(List<File> files, File directory, FilenameFilter nameFilter) {
+    //TODO Improve the performance and readability
+    private void searchFilesInFolderRecursively(List<File> files, File directory, FilenameFilter nameFilter) {
+        checkNotNull(directory, "Input directory is null");
+
         File[] findFiles = directory.listFiles(nameFilter);
+
         for (File file : directory.listFiles()) {
             if (file.isDirectory()) {
-                innerListFiles(files, file, nameFilter);
+                searchFilesInFolderRecursively(files, file, nameFilter);
             }
         }
         if (findFiles.length > 0) {
